@@ -1,0 +1,106 @@
+---
+- hosts: localhost
+  tasks:
+  - name: update system
+    become: true
+    apt:
+      force_apt_get: true
+      state: latest
+      update_cache: true
+      name: '*'
+
+  - name: install system packages
+    become: true
+    apt:
+      force_apt_get: true
+      state: present
+      name: "{{ item }}"
+    loop:
+      - curl
+      - git
+      - tmux
+      - gdb
+      - vim
+      - vim-gnome
+      - gcc
+      - g++
+      - nodejs
+      - npm
+      - python-psutil
+      - make
+      - meson
+      - libgtk-3-dev
+      - libgstreamer1.0-dev
+      - gstreamer1.0-gtk3
+      - gstreamer1.0-gl
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-ugly
+      - docker.io
+      - sshfs
+      - ruby
+      - gnome-session
+
+  - name: configure with dconf
+    dconf:
+      key: "{{item.key}}"
+      value: "{{item.value}}"
+    loop:
+      # interface
+      - {key: "/org/gnome/desktop/interface/gtk-theme",
+         value: "'Adwaita'"}
+      - {key: "/org/gnome/desktop/wm/preferences/theme",
+         value: "'Adwaita'"}
+      - {key: "/org/gnome/desktop/interface/cursor-theme",
+         value: "'Adwaita'"}
+      - {key: "/org/gnome/desktop/interface/icon-theme",
+         value: "'Adwaita'"}
+
+      # fonts
+      - {key: "/org/gnome/desktop/interface/font-name",
+         value: "'Cantarell 10'"}
+      - {key: "/org/gnome/desktop/wm/preferences/titlebar-font",
+         value: "'Cantarell Bold 10'"}
+      - {key: "/org/gnome/desktop/interface/document-font-name",
+         value: "'Liberation Serif 12'"}
+      - {key: "/org/gnome/desktop/interface/monospace-font-name",
+         value: "'Monospace 11'"}
+      - {key: "/org/gnome/settings-daemon/plugins/xsettings/hinting",
+         value: "'full'"}
+   
+      # some preferences
+      - {key: "/org/gnome/desktop/interface/show-battery-percentage",
+         value: "false"}
+      - {key: "/org/gnome/settings-daemon/plugins/color/night-light/enabled",
+         value: "true"}
+      - {key: "/org/gnome/settings-daemon/plugins/xsettings/antialiasing",
+         value: "'rgba'"}
+      - {key: "/org/gnome/shell/disable-user-extensions",
+         value: "true"}
+      - {key: "/org/gnome/system/location/enabled",
+         value: "true"}
+      - {key: "/org/gnome/desktop/privacy/report-technical-problems",
+         value: "true"}
+
+      # touchpad
+      - {key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll",
+         value: "false"}
+      - {key: "/org/gnome/desktop/peripherals/touchpad/edge-scrolling-enabled",
+         value: "true"}
+      - {key: "/org/gnome/desktop/peripherals/touchpad/\
+               two-finger-scrolling-enabled",
+         value: "false"}
+      - {key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click",
+         value: "true"}
+
+  - name: configure git
+    git_config:
+      scope: global
+      name: "{{item.key}}"
+      value: "{{item.value}}"
+    loop:
+      - {key: "user.email", value: "geext29@gmail.com"}
+      - {key: "user.name", value: "Denis Karpovskii"}
+      - {key: "commit.gpgSign", value: "true"}
+      - {key: "gpg.program", value: "gpg2"}
+      - {key: "user.signingkey", value: "C171850A5205340C"}
