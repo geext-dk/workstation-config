@@ -33,6 +33,7 @@
       - flatpak
       - sshfs
       - ruby
+      - ncurses-compat-libs
 
   - name: remove some packages
     become: true
@@ -134,9 +135,10 @@
     - org.gnome.Devhelp
     - org.gnome.Evince
     - org.gnome.Glade
+    - org.gnome.Epiphany
     - org.keepassxc.KeePassXC
     - org.libreoffice.LibreOffice
     - io.github.GnomeMpv
-    - "https://firefox-flatpak.mojefedora.cz/\
-       org.mozilla.FirefoxNightly.flatpakref"
+      #- "https://firefox-flatpak.mojefedora.cz/\
+      #org.mozilla.FirefoxNightly.flatpakref"
 
