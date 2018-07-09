@@ -128,7 +128,7 @@
     - com.discordapp.Discord
     - com.google.AndroidStudio
     - com.spotify.Client
-    - com.visualstudio.code
+    # - com.visualstudio.code
     - org.fedoraproject.MediaWriter
     - org.gimp.GIMP
     - org.gnome.Builder
