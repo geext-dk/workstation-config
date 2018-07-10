@@ -34,6 +34,7 @@
       - sshfs
       - ruby
       - ncurses-compat-libs
+      - cmake
 
   - name: remove some packages
     become: true
@@ -128,7 +129,6 @@
     - com.discordapp.Discord
     - com.google.AndroidStudio
     - com.spotify.Client
-    # - com.visualstudio.code
     - org.fedoraproject.MediaWriter
     - org.gimp.GIMP
     - org.gnome.Builder
@@ -139,6 +139,4 @@
     - org.keepassxc.KeePassXC
     - org.libreoffice.LibreOffice
     - io.github.GnomeMpv
-      #- "https://firefox-flatpak.mojefedora.cz/\
-      #org.mozilla.FirefoxNightly.flatpakref"
 
