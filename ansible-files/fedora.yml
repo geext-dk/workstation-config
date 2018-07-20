@@ -1,6 +1,12 @@
 ---
 - hosts: localhost
   tasks:
+  - name: install rpmfusion
+    become: true
+    dnf:
+      state: present
+      name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-28.noarch.rpm
+
   - name: update system
     become: true
     dnf:
@@ -11,43 +17,17 @@
     become: true
     dnf:
       state: present
-      name: "{{ item }}"
-    loop:
-      - curl
-      - git
-      - tmux
-      - gdb
-      - vim
-      - vim-X11
-      - gcc
-      - gcc-c++
-      - nodejs
-      - npm
-      - python-psutil
-      - make
-      - meson
-      - gtk3-devel
-      - gstreamer1*devel
-      - podman
-      - buildah
-      - flatpak
-      - sshfs
-      - ruby
-      - ncurses-compat-libs
-      - cmake
+      name: ["curl", "git", "gdb", "vim", "gcc", "gcc-c++", "python-psutil",
+             "make", "meson", "gtk3-devel", "gstreamer1*devel", "podman",
+             "buildah", "flatpak", "sshfs", "ruby", "ncurses-compat-libs",
+             "cmake", "chromium", "chromium-libs-media-freeworld"]
 
   - name: remove some packages
     become: true
     dnf:
       state: absent
-      name: "{{ item }}"
-    loop:
-      - libreoffice-core
-      - evolution 
-      - totem 
-      - evince
-      - rhythmbox
-      - firefox
+      name: ["libreoffice-core", "evolution ", "totem ", "evince",
+             "rhythmbox", "firefox"]
 
   - name: configure with dconf
     dconf:
@@ -95,8 +75,7 @@
          value: "false"}
       - {key: "/org/gnome/desktop/peripherals/touchpad/edge-scrolling-enabled",
          value: "true"}
-      - {key: "/org/gnome/desktop/peripherals/touchpad/\
-               two-finger-scrolling-enabled",
+      - {key: "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled",
          value: "false"}
       - {key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click",
          value: "true"}
@@ -107,24 +86,24 @@
       name: "{{item.key}}"
       value: "{{item.value}}"
     loop:
-      - {key: "user.email", value: "geext29@gmail.com"}
-      - {key: "user.name", value: "Denis Karpovskii"}
-      - {key: "commit.gpgSign", value: "true"}
-      - {key: "gpg.program", value: "gpg2"}
-      - {key: "user.signingkey", value: "C171850A5205340C"}
+      - {key: "user.email",      value: "geext29@gmail.com"}
+      - {key: "user.name",       value: "Denis Karpovskii"}
+      - {key: "commit.gpgSign",  value: "true"}
+      - {key: "gpg.program",     value: "gpg2"}
+      - {key: "user.signingkey", value: "7F4413E312C92E4A"}
 
   - name: add flathub flatpak repo
+    become: true
     flatpak_remote:
       state: present
-      method: user
       name: flathub
       flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
   - name: install flatpak apps
+    become: true
     flatpak:
       state: present
       name: "{{item}}"
-      method: user
     loop:
     - com.discordapp.Discord
     - com.google.AndroidStudio
