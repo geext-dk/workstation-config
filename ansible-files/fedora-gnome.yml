@@ -1,6 +1,16 @@
 ---
 - hosts: localhost
   tasks:
+  - name: set hostname
+    hostname:
+      name: geext-workstation
+
+  - name: remove unneeded packages
+    become: true
+    dnf:
+      state: absent
+      name: ["totem", "firefox"]
+
   - name: install rpmfusion
     become: true
     dnf:
@@ -13,21 +23,21 @@
       state: latest
       name: '*'
 
-  - name: install system packages
+  - name: install packages
     become: true
     dnf:
       state: present
       name: ["curl", "git", "gdb", "vim", "gcc", "gcc-c++", "python-psutil",
              "make", "meson", "gtk3-devel", "gstreamer1*devel", "podman",
              "buildah", "flatpak", "sshfs", "ruby", "ncurses-compat-libs",
-             "cmake", "chromium", "chromium-libs-media-freeworld"]
+             "cmake", "zsh", "powerline-fonts", "gtest-devel", "valgrind",
+             "gnome-mpv", "keepassxc", "kcachegrind", "gradle"]
 
-  - name: remove some packages
+  - name: set zsh as a default shell
     become: true
-    dnf:
-      state: absent
-      name: ["libreoffice-core", "evolution ", "totem ", "evince",
-             "rhythmbox", "firefox"]
+    user:
+      name: geext
+      shell: /bin/zsh
 
   - name: configure with dconf
     dconf:
@@ -66,9 +76,9 @@
       - {key: "/org/gnome/shell/disable-user-extensions",
          value: "true"}
       - {key: "/org/gnome/system/location/enabled",
-         value: "true"}
+         value: "false"}
       - {key: "/org/gnome/desktop/privacy/report-technical-problems",
-         value: "true"}
+         value: "false"}
 
       # touchpad
       - {key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll",
@@ -105,17 +115,6 @@
       state: present
       name: "{{item}}"
     loop:
-    - com.discordapp.Discord
     - com.google.AndroidStudio
     - com.spotify.Client
-    - org.fedoraproject.MediaWriter
-    - org.gimp.GIMP
-    - org.gnome.Builder
-    - org.gnome.Devhelp
-    - org.gnome.Evince
-    - org.gnome.Glade
-    - org.gnome.Epiphany
-    - org.keepassxc.KeePassXC
-    - org.libreoffice.LibreOffice
-    - io.github.GnomeMpv
 
