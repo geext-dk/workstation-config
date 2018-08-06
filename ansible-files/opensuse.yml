@@ -1,0 +1,105 @@
+---
+- hosts: localhost
+  tasks:
+  - name: remove unneeded packages
+    become: true
+    package:
+      state: absent
+      name: "{{item}}"
+    loop: 
+      - dnfdragora
+      - konqueror
+      - kmahjongg
+      - k3b
+      - kmines
+      - krfb
+      - kpat
+      - kmines
+      - ksudoku
+      - kreversi
+      - kmahjongg
+      - kolourpaint
+      - kruler
+      - skanlite
+      - libreoffice
+      - akregator
+      - konversation
+      - krdc
+      - kmail
+      - knode
+      - amarok
+      - kamoso
+      - dragon
+      - telepathy
+      - kamera
+      - kaddressbook
+      - akonadi-import-wizard
+      - calligra-core
+      - kmousetool
+      - kget
+      - ktorrent
+      - kmouth
+      - krusader
+      - kwrite
+      - kfind
+      - kmag
+      - korganizer
+      - vlc	 
+
+  - name: update system
+    become: true
+    zypper:
+      update_cache: true
+      state: dist-upgrade
+      name: '*'
+
+  - name: install packages
+    become: true
+    zypper:
+      state: present
+      name: ["curl", "git", "gdb", "vim", "gcc", "gcc-c++",
+             "make", "meson", "flatpak", "sshfs", "ruby",
+             "cmake", "zsh", "powerline-fonts", "gtest",
+             "ninja", "falkon", "spectacle",
+             "breeze-gtk",
+             "noto-sans-fonts", "valgrind"]
+  
+  - name: set zsh as a default shell
+    become: true
+    user:
+      name: geext
+      shell: /bin/zsh
+
+  - name: configure git
+    git_config:
+      scope: global
+      name: "{{item.key}}"
+      value: "{{item.value}}"
+    loop:
+      - {key: "user.email",      value: "geext29@gmail.com"}
+      - {key: "user.name",       value: "Denis Karpovskii"}
+      - {key: "commit.gpgSign",  value: "true"}
+      - {key: "gpg.program",     value: "gpg2"}
+      - {key: "user.signingkey", value: "7F4413E312C92E4A"}
+
+  - name: add flathub flatpak repo
+    become: true
+    flatpak_remote:
+      state: present
+      name: flathub
+      flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+
+  - name: install flatpak apps
+    become: true
+    flatpak:
+      state: present
+      name: "{{item}}"
+    loop:
+    - com.google.AndroidStudio
+    - com.spotify.Client
+    - org.gimp.GIMP
+    - org.libreoffice.LibreOffice
+    - org.keepassxc.KeePassXC
+    - com.uploadedlobster.peek
+    - org.videolan.VLC
+
