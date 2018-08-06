@@ -10,8 +10,8 @@
              "akregator", "konversation", "krdc", "kmail", "knode",
              "falkon", "amarok", "kamoso", "dragon", "telepathy",
              "kamera", "kaddressbook", "akonadi-import-wizard",
-	     "calligra-core", "kaccounts-integration", "kmousetool",
-             "kmouth", "krusader", "kwrite", "kfind", "ark", "kmag",
+	         "calligra-core", "kmousetool", "kget", "ktorrent",
+             "kmouth", "krusader", "kwrite", "kfind", "kmag",
              "korganizer", "mediawriter"]	 
 
   - name: update system
@@ -27,7 +27,7 @@
       name: ["curl", "git", "gdb", "vim", "gcc", "gcc-c++",
              "make", "meson", "flatpak", "sshfs", "ruby", "ncurses-compat-libs",
              "cmake", "zsh", "powerline-fonts", "gtest-devel",
-             "ninja-build",
+             "ninja-build", "falkon", "spectacle",
              "breeze-gtk",
              "google-noto-sans-fonts", "valgrind",
              "gradle"]
@@ -70,4 +70,5 @@
     - org.libreoffice.LibreOffice
     - org.keepassxc.KeePassXC
     - com.uploadedlobster.peek
+    - org.videolan.VLC
 
