@@ -11,12 +11,6 @@
       state: absent
       name: ["totem", "firefox"]
 
-  - name: install rpmfusion
-    become: true
-    dnf:
-      state: present
-      name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-28.noarch.rpm
-
   - name: update system
     become: true
     dnf:
@@ -28,10 +22,9 @@
     dnf:
       state: present
       name: ["curl", "git", "gdb", "vim", "gcc", "gcc-c++", "python-psutil",
-             "make", "meson", "gtk3-devel", "gstreamer1*devel", "podman",
-             "buildah", "flatpak", "sshfs", "ruby", "ncurses-compat-libs",
-             "cmake", "zsh", "powerline-fonts", "gtest-devel", "valgrind",
-             "gnome-mpv", "keepassxc", "kcachegrind", "gradle"]
+             "make", "meson", "gtk3-devel", "gstreamer1*devel", "flatpak",
+             "sshfs", "ncurses-compat-libs",
+             "cmake", "zsh", "powerline-fonts", "gtest-devel", "valgrind"]
 
   - name: set zsh as a default shell
     become: true
@@ -117,4 +110,15 @@
     loop:
     - com.google.AndroidStudio
     - com.spotify.Client
-
+    - org.gimp.GIMP
+    - org.libreoffice.LibreOffice
+    - io.github.GnomeMpv
+    - org.gnome.Music
+    - org.gnome.Rhythmbox3
+    - com.google.AndroidStudio
+    - org.gnome.Builder
+    - org.gnome.Devhelp
+    - org.gnome.eog
+    - org.gnome.Evince
+    - com.discordapp.Discord
+    - org.qbittorrent.qBittorrent
