@@ -1,0 +1,24 @@
+---
+- name: add flatpak repository
+  become: true
+  flatpak_remote:
+    flatpakrepo_url: 'https://flathub.org/repo/flathub.flatpakrepo'
+    name: 'flathub'
+    state: present
+    method: system
+
+    
+- name: install flatpaks
+  become: true
+  flatpak:
+    name: "{{ item }}"
+    state: present
+    remote: flathub
+  loop:
+  - com.spotify.Client
+  - com.visualstudio.code
+  - org.keepassxc.KeePassXC
+  - org.libreoffice.LibreOffice
+  - com.slack.Slack
+  - com.discordapp.Discord
+  - org.telegram.desktop

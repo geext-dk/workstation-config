@@ -1,0 +1,29 @@
+---
+- name: Remove unneeded KDE packages
+  become: true
+  dnf:
+    state: absent
+    name: ['kgpg', 'kmahjongg', 'kpat', 'konqueror', 'dragon', 'k3b',
+           'calligra-core']
+
+- name: Install KDE packages
+  become: true
+  dnf:
+    state: present
+    name: ['latte-dock', 'breeze-gtk', 'kate',
+
+           # for the 'ini_file' module to get it work on systems with selinux
+           # Fedora in particular
+           'python2-libselinux']
+
+- name: Configure KDE
+  ini_file:
+    option: "{{ item.option }}"
+    path: ~/.config/touchpadrc
+    section: "{{ item.section }}"
+    state: present
+    value: "{{ item.value }}"
+  loop:
+    - { section: "autodisable",
+        option:  "DisableWhenMousePluggedIn",
+        value:   "true"}

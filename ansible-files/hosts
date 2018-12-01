@@ -1,0 +1,7 @@
+[local]
+localhost ansible_connection=local
+
+[local:vars]
+user=geext
+home=/home/{{user}}
+rpmfusion_free_url=https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-29.noarch.rpm

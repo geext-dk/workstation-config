@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Add the RPM Fusion free repo
+    become: true
+    dnf:
+      state: present
+      name: '{{ rpmfusion_free_url }}'
+
+  - name: Upgrade the system
+    become: true
+    dnf:
+      state: latest
+      name: '*'
+
+  - name: Install system packages
+    become: true
+    dnf:
+      state: present
+      name: ['google-noto-sans-fonts', 'vim', 'gcc-c++', 'cmake', 'make',
+             'meson', 'clang', 'llvm', 'flatpak', 'git', 'VirtualBox', 'zsh',
+
+             # For building RPM packages
+             'rpm-build', 'rpm-devel', 'rpmlint', 'coreutils', 'diffutils',
+             'rpmdevtools']
+
+  - name: Change default user shell
+    become: true
+    user:
+      name: "{{ user }}"
+      shell: /usr/bin/zsh
+  
+  - name: Set up Oh-My-Zsh
+    git:
+      dest: ~/.oh-my-zsh
+      repo: https://github.com/robbyrussell/oh-my-zsh.git
+
+  - name: Copy template .zshrc from Oh-My-Zsh
+    copy:
+      src: ~/.oh-my-zsh/templates/zshrc.zsh-template
+      dest: ~/.zshrc
+      force: no
+
+# flatpak module is currently broken (probably due to transition to python3)
+#   - include: tasks/flatpak.yml
+  - import_tasks: tasks/kde.yml
