@@ -10,7 +10,7 @@
   become: true
   dnf:
     state: present
-    name: ['latte-dock', 'breeze-gtk', 'kate',
+    name: ['breeze-gtk', 'kate', 'filelight',
 
            # for the 'ini_file' module to get it work on systems with selinux
            # Fedora in particular
