@@ -16,6 +16,12 @@
            # Fedora in particular
            'python2-libselinux']
 
+- name: Install packages for KDE development
+  become: true
+  dnf:
+    state: present
+    name: ['perl-IPC-Cmd', 'perl-JSON-PP', 'perl-YAML-Syck', 'dialog']
+
 - name: Configure KDE
   ini_file:
     option: "{{ item.option }}"

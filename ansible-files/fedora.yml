@@ -26,10 +26,7 @@
              'rpmdevtools',
              
              # for Qt development
-             'qt5-devel',
-             
-             # for KDE development
-             'dialog']
+             'qt5-devel']
 
 # flatpak module is currently broken (probably due to the transition to python3)
 #   - import_tasks: tasks/flatpak.yml
