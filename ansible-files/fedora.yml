@@ -7,6 +7,12 @@
       state: present
       name: '{{ rpmfusion_free_url }}'
 
+  - name: Remove unneeded packages
+    become: true
+    dnf:
+      state: absent
+      name: ['yelp', 'virtualbox-guest-additions']
+
   - name: Upgrade the system
     become: true
     dnf:
@@ -17,17 +23,27 @@
     become: true
     dnf:
       state: present
-      name: ['google-noto-sans-fonts', 'vim', 'gcc-c++', 'cmake', 'make',
-             'meson', 'clang', 'llvm', 'flatpak', 'git', 'VirtualBox',
+      name: ['google-noto-sans-fonts',
+             'vim',
+             'gcc-c++',
+             'cmake',
+             'make',
+             'llvm',
+             'flatpak',
+             'git',
              'ffmpeg',
 
              # For building RPM packages
-             'rpm-build', 'rpm-devel', 'rpmlint', 'coreutils', 'diffutils',
+             'rpm-build',
+             'rpm-devel',
+             'rpmlint',
+             'coreutils',
+             'diffutils',
              'rpmdevtools',
              
              # for Qt development
              'qt5-devel']
 
 # flatpak module is currently broken (probably due to the transition to python3)
-#   - import_tasks: tasks/flatpak.yml
+#  - import_tasks: tasks/flatpak.yml
   - import_tasks: tasks/kde.yml

@@ -6,7 +6,6 @@
     name: 'flathub'
     state: present
     method: system
-
     
 - name: install flatpaks
   become: true
@@ -20,5 +19,5 @@
   - "{{ libreoffice }}"
   - "{{ telegram }}"
   - "{{ torrent }}"
-  - "{{ androidstudio}}"
+    #  - "{{ androidstudio}}"
   - "{{ vlc }}"
