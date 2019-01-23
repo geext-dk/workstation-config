@@ -32,6 +32,7 @@
              'flatpak',
              'git',
              'ffmpeg',
+             'zram',
 
              # For building RPM packages
              'rpm-build',
@@ -41,8 +42,14 @@
              'diffutils',
              'rpmdevtools',
              
-             # for Qt development
-             'qt5-devel']
+             # for Vulkan development
+             'vulkan-loader-devel',
+             'vulkan-validation-layers-devel',
+             'vulkan-headers',
+             'vulkan-tools',
+             'glslang',
+             'glfw-devel'
+             ]
 
 # flatpak module is currently broken (probably due to the transition to python3)
 #  - import_tasks: tasks/flatpak.yml
