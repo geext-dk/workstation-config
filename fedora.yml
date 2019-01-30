@@ -1,6 +1,11 @@
 ---
 - hosts: localhost
   tasks:
+  - name: change hostname to lenovo-330
+    become: true
+    hostname:
+      name: lenovo-330
+
   - name: Add the RPM Fusion free repo
     become: true
     dnf:
@@ -26,13 +31,15 @@
       name: ['google-noto-sans-fonts',
              'vim',
              'gcc-c++',
+             'gdb',
              'cmake',
+             'ninja-build',
              'make',
-             'llvm',
              'flatpak',
              'git',
              'ffmpeg',
-             'zram',
+             'firefox',
+             '{{ windscribe_rpm }}',
 
              # For building RPM packages
              'rpm-build',
@@ -42,13 +49,15 @@
              'diffutils',
              'rpmdevtools',
              
-             # for Vulkan development
+             # for development
              'vulkan-loader-devel',
              'vulkan-validation-layers-devel',
              'vulkan-headers',
              'vulkan-tools',
              'glslang',
-             'glfw-devel'
+             'glfw-devel',
+             'glm-devel',
+             'mesa-libGL-devel'
              ]
 
 # flatpak module is currently broken (probably due to the transition to python3)

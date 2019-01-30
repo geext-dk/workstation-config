@@ -8,7 +8,10 @@
         'calligra-core', 'kontact', 'kmail', 'dnfdragora', 'kget', 'ktorrent',
         'kmines', 'kolourpaint', 'kruler', 'kamoso', 'juk', 'kwrite', 'kfind',
         'krusader', 'kmouth', 'kmousetool', 'kmag', 'akonadi-import-wizard',
-        'korganizer', 'kaddressbook'
+        'korganizer', 'kaddressbook', 'kmail-account-wizard',
+        'pim-data-exporter', 'pim-sieve-editor', 'kcolorchooser',
+        'grantlee-editor', 'im-chooser', 'ibus-setup', 'ibus-cangjie',
+        'qt5-qdbusviewer', 'gnome-disk-utility', 'kcharselect'
     ]
 
 - name: Install KDE packages
@@ -22,13 +25,16 @@
         'plasma-workspace-wayland',
         'plymouth-theme-breeze',
         'grub2-breeze-theme',
+        'latte-dock',
+        'ark',
+        'okular',
 
         # for the 'ini_file' module to get it work on systems with selinux
         # Fedora in particular
         'python2-libselinux',
     ]
 
-- name: Install packages for KDE development
+- name: Install packages for KDE development # FIXME
   become: true
   dnf:
     state: present

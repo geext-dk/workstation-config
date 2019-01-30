@@ -14,10 +14,11 @@
     state: present
     remote: flathub
   loop:
-  - "{{ spotify }}"
-  - "{{ keepass }}"
-  - "{{ libreoffice }}"
-  - "{{ telegram }}"
-  - "{{ torrent }}"
-    #  - "{{ androidstudio}}"
-  - "{{ vlc }}"
+  - org.videolan.VLC
+  - com.spotify.Client
+  - org.keepassxc.KeePassXC
+  - org.telegram.desktop
+  - org.libreoffice.LibreOffice
+  - org.qbittorrent.qBittorrent
+  - org.gimp.GIMP
+  - com.valvesoftware.Steam
