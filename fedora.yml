@@ -16,7 +16,7 @@
     become: true
     dnf:
       state: absent
-      name: ['yelp', 'virtualbox-guest-additions']
+      name: ['yelp', 'virtualbox-guest-additions', 'fedora-release-notes']
 
   - name: Upgrade the system
     become: true
@@ -57,9 +57,16 @@
              'glslang',
              'glfw-devel',
              'glm-devel',
-             'mesa-libGL-devel'
+             'mesa-libGL-devel',
+             'stbi-devel',
+             'tinyobjloader-devel'
              ]
+  - name: install Windscribe
+    become: true
+    dnf:
+      name: "{{ windscribe_rpm }}"
+      state: present
 
-# flatpak module is currently broken (probably due to the transition to python3)
+# flatpak module is currently broken
 #  - import_tasks: tasks/flatpak.yml
   - import_tasks: tasks/kde.yml

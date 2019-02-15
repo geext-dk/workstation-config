@@ -1,5 +1,6 @@
 put 'FONT=latarcyrhen-sun16' in /etc/vconsole.conf for Cyrrilic support
 run 'plymouth-set-default-theme breeze'
+comment 'GRUB_TERMINAL_OUTPUT' in /etc/default/grub
 add 'GRUB_THEME=/boot/grub2/themes/breeze/theme.txt' to /etc/default/grub
 run 'grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg' to update GRUB conf
 run 'dracut -vf' to update initramfs (forcefully)

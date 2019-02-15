@@ -11,7 +11,8 @@
         'korganizer', 'kaddressbook', 'kmail-account-wizard',
         'pim-data-exporter', 'pim-sieve-editor', 'kcolorchooser',
         'grantlee-editor', 'im-chooser', 'ibus-setup', 'ibus-cangjie',
-        'qt5-qdbusviewer', 'gnome-disk-utility', 'kcharselect'
+        'qt5-qdbusviewer', 'gnome-disk-utility', 'kcharselect',
+        'plasma-pk-updates', 'plasma-discover', 'khelpcenter'
     ]
 
 - name: Install KDE packages
@@ -25,9 +26,9 @@
         'plasma-workspace-wayland',
         'plymouth-theme-breeze',
         'grub2-breeze-theme',
-        'latte-dock',
         'ark',
         'okular',
+        'kde-connect',
 
         # for the 'ini_file' module to get it work on systems with selinux
         # Fedora in particular
@@ -42,7 +43,33 @@
         'perl-IPC-Cmd',
         'perl-JSON-PP',
         'perl-YAML-Syck',
-        'dialog'
+        'dialog',
+        "polkit-devel",
+        "gperf",
+        "libxslt-devel",
+        "libxml2-devel",
+        "libXrender-devel",
+        "qrencode-devel",
+        "xcb*-devel",
+        "flex",
+        "systemd-devel",
+        "giflib-devel",
+        "libjpeg-turbo-devel",
+        "NetworkManager-libnm-devel",
+        "ModemManager-devel",
+        "libattr-devel",
+        "openssl-devel",
+        "libSM-devel",
+        "wayland-devel",
+        "lmdb-devel",
+        "libaccounts-qt5-devel",
+        "libaccounts-glib-devel",
+        "signon-devel",
+        "bison",
+
+        # arcanist
+        "php-cli",
+        "php-json"
     ]
 
 - name: Configure KDE
@@ -55,4 +82,17 @@
   loop:
     - { section: "autodisable",
         option:  "DisableWhenMousePluggedIn",
+        value:   "true" }
+    - { section: "autodisable",
+        option:  "KeyboardActivityTimeoutMs",
+        value: "300" }
+    - { section: "parameters",
+        option:  "Tapping",
+        value: "true"}
+    - { section: "parameters",
+        option:  "VertEdgeScroll",
         value:   "true"}
+    - { section: "parameters",
+        option:  "VertTwoFingerScroll",
+        value:   "false"}
+
