@@ -14,20 +14,14 @@
         'qt5-qdbusviewer', 'gnome-disk-utility', 'kcharselect',
         'plasma-pk-updates', 'plasma-discover', 'khelpcenter'
     ]
-
 - name: Install KDE packages
   become: true
   dnf:
     state: present
     name: [
-        'breeze-gtk',
         'kate',
         'filelight',
-        'plasma-workspace-wayland',
-        'plymouth-theme-breeze',
-        'grub2-breeze-theme',
         'ark',
-        'okular',
         'kde-connect',
 
         # for the 'ini_file' module to get it work on systems with selinux
@@ -40,6 +34,8 @@
   dnf:
     state: present
     name: [
+        'gammaray',  # an excelent Qt debug tool
+
         'perl-IPC-Cmd',
         'perl-JSON-PP',
         'perl-YAML-Syck',
@@ -65,7 +61,18 @@
         "libaccounts-qt5-devel",
         "libaccounts-glib-devel",
         "signon-devel",
+        "boost-devel",
+        "libpng-devel",
+        "pam-devel",
+        "freetype-devel",
+        "fontconfig-devel",
         "bison",
+        "libepoxy-devel",
+        "mesa-libgbm-devel",
+        "libinput-devel",
+        "libxkbcommon-devel",
+        "libcap-devel",        
+        "gammaray",
 
         # arcanist
         "php-cli",
@@ -95,4 +102,13 @@
     - { section: "parameters",
         option:  "VertTwoFingerScroll",
         value:   "false"}
+
+# doesn't work for now
+#- name: add KDE Connect rule for firewalld
+#  become: true
+#  firewalld:
+#    permanent: true
+#    immediate: true
+#    service: kde-connect
+#    state: enabled
 

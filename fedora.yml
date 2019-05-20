@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: no
   tasks:
   - name: change hostname to lenovo-330
     become: true
@@ -16,7 +17,8 @@
     become: true
     dnf:
       state: absent
-      name: ['yelp', 'virtualbox-guest-additions', 'fedora-release-notes']
+      name: ['yelp', 'virtualbox-guest-additions', 'fedora-release-notes',
+             'dnfdragora', 'firefox']
 
   - name: Upgrade the system
     become: true
@@ -37,9 +39,11 @@
              'make',
              'flatpak',
              'git',
-             'ffmpeg',
-             'firefox',
+             'kvantum',
+             'podman',
+             'buildah',
              '{{ windscribe_rpm }}',
+             '{{ google_chrome_rpm }}',
 
              # For building RPM packages
              'rpm-build',
@@ -47,26 +51,10 @@
              'rpmlint',
              'coreutils',
              'diffutils',
-             'rpmdevtools',
-             
-             # for development
-             'vulkan-loader-devel',
-             'vulkan-validation-layers-devel',
-             'vulkan-headers',
-             'vulkan-tools',
-             'glslang',
-             'glfw-devel',
-             'glm-devel',
-             'mesa-libGL-devel',
-             'stbi-devel',
-             'tinyobjloader-devel'
+             'rpmdevtools'
              ]
-  - name: install Windscribe
-    become: true
-    dnf:
-      name: "{{ windscribe_rpm }}"
-      state: present
 
 # flatpak module is currently broken
-#  - import_tasks: tasks/flatpak.yml
+  - import_tasks: tasks/flatpak.yml
   - import_tasks: tasks/kde.yml
+
