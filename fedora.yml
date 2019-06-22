@@ -17,31 +17,58 @@
     become: true
     dnf:
       state: absent
-      name: ['yelp', 'virtualbox-guest-additions', 'fedora-release-notes',
-             'dnfdragora', 'firefox']
+      name: ['virtualbox-guest-additions', 'fedora-release-notes', 'abrt',
+             'gnome-boxes', 'totem', 'rhythmbox', 'firefox', 'cheese',
+             'libreoffice-core', 'gnome-weather']
 
   - name: Upgrade the system
     become: true
     dnf:
       state: latest
       name: '*'
+  
+  - name: Enable my sway copr
+    become: true
+    command: "dnf copr enable -y geext/sway"
+    args:
+        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:geext:sway.repo
+  
+  - name: Enable kitty-latest copr
+    become: true
+    command: "dnf copr enable -y gagbo/kitty-latest"
+    args:
+        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:gagbo:kitty-latest.repo
+  
+  - name: Enable kitty-latest copr
+    become: true
+    command: "dnf copr enable -y alebastr/waybar"
+    args:
+        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:alebastr:waybar.repo
 
   - name: Install system packages
     become: true
     dnf:
       state: present
       name: ['google-noto-sans-fonts',
-             'vim',
+             'neovim',
              'gcc-c++',
              'gdb',
              'cmake',
              'ninja-build',
              'make',
+             'meson',
              'flatpak',
              'git',
-             'kvantum',
              'podman',
              'buildah',
+             'zram',
+             'kitty',
+             'sway',
+             'waybar',
+             'light',
+             'mpd',
+             'swaybg',
+             'playerctl',
              '{{ windscribe_rpm }}',
              '{{ google_chrome_rpm }}',
 
@@ -54,7 +81,12 @@
              'rpmdevtools'
              ]
 
+  - name: Enable systemd services
+    become: true
+    systemd:
+      enabled: true
+      name: zram-swap.service
+
 # flatpak module is currently broken
   - import_tasks: tasks/flatpak.yml
-  - import_tasks: tasks/kde.yml
 

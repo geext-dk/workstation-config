@@ -23,6 +23,8 @@
         'filelight',
         'ark',
         'kde-connect',
+        'latte-dock',
+        'breeze-gtk',
 
         # for the 'ini_file' module to get it work on systems with selinux
         # Fedora in particular
@@ -104,11 +106,11 @@
         value:   "false"}
 
 # doesn't work for now
-#- name: add KDE Connect rule for firewalld
-#  become: true
-#  firewalld:
-#    permanent: true
-#    immediate: true
-#    service: kde-connect
-#    state: enabled
+- name: add KDE Connect rule for firewalld
+  become: true
+  firewalld:
+    permanent: true
+    immediate: true
+    service: kde-connect
+    state: enabled
 
