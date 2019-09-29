@@ -18,7 +18,7 @@
     dnf:
       state: absent
       name: ['virtualbox-guest-additions', 'fedora-release-notes', 'abrt',
-             'gnome-boxes', 'totem', 'rhythmbox', 'firefox', 'cheese',
+             'gnome-boxes', 'totem', 'rhythmbox', 'cheese', 'firefox',
              'libreoffice-core', 'gnome-weather']
 
   - name: Upgrade the system
@@ -27,24 +27,12 @@
       state: latest
       name: '*'
   
-  - name: Enable my sway copr
-    become: true
-    command: "dnf copr enable -y geext/sway"
-    args:
-        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:geext:sway.repo
-  
   - name: Enable kitty-latest copr
     become: true
     command: "dnf copr enable -y gagbo/kitty-latest"
     args:
         creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:gagbo:kitty-latest.repo
   
-  - name: Enable kitty-latest copr
-    become: true
-    command: "dnf copr enable -y alebastr/waybar"
-    args:
-        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:alebastr:waybar.repo
-
   - name: Install system packages
     become: true
     dnf:
@@ -62,13 +50,7 @@
              'podman',
              'buildah',
              'zram',
-             'kitty',
-             'sway',
-             'waybar',
-             'light',
-             'mpd',
-             'swaybg',
-             'playerctl',
+             'earlyoom',
              '{{ windscribe_rpm }}',
              '{{ google_chrome_rpm }}',
 
@@ -78,15 +60,19 @@
              'rpmlint',
              'coreutils',
              'diffutils',
-             'rpmdevtools'
+             'rpmdevtools',
              ]
 
-  - name: Enable systemd services
+  - name: Enable zram
     become: true
     systemd:
       enabled: true
-      name: zram-swap.service
+      name: 'zram-swap.service'
 
-# flatpak module is currently broken
+  - name: Enable earlyoom
+    become: true
+    systemd:
+      enabled: true
+      name: 'earlyoom.service'
+
   - import_tasks: tasks/flatpak.yml
-

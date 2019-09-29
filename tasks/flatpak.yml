@@ -22,7 +22,5 @@
   - org.qbittorrent.qBittorrent
   - org.gimp.GIMP
   - com.valvesoftware.Steam
-  #- org.kde.okular
-  - com.visualstudio.code
   - org.freedesktop.Sdk.Extension.dotnet
   - com.mojang.Minecraft
