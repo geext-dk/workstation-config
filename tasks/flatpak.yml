@@ -14,7 +14,6 @@
     state: present
     remote: flathub
   loop:
-  - org.videolan.VLC
   - com.spotify.Client
   - org.keepassxc.KeePassXC
   - org.telegram.desktop
@@ -24,3 +23,7 @@
   - com.valvesoftware.Steam
   - org.freedesktop.Sdk.Extension.dotnet
   - com.mojang.Minecraft
+  - org.gnome.eog
+  - org.gnome.Evince
+  - org.gnome.gedit
+

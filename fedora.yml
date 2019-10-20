@@ -19,7 +19,8 @@
       state: absent
       name: ['virtualbox-guest-additions', 'fedora-release-notes', 'abrt',
              'gnome-boxes', 'totem', 'rhythmbox', 'cheese', 'firefox',
-             'libreoffice-core', 'gnome-weather']
+             'libreoffice-core', 'gnome-weather', 'gnome-contacts',
+             'gnome-photos', 'eog', 'gnome-maps', 'gedit', 'simple-scan']
 
   - name: Upgrade the system
     become: true
