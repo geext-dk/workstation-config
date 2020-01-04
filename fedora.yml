@@ -17,29 +17,30 @@
     become: true
     dnf:
       state: absent
-      name: ['virtualbox-guest-additions', 'fedora-release-notes', 'abrt',
-             'gnome-boxes', 'totem', 'rhythmbox', 'cheese', 'firefox',
+      name: ['virtualbox-guest-additions', 'fedora-release-notes',
+             'gnome-boxes', 'totem', 'rhythmbox', 'cheese',
              'libreoffice-core', 'gnome-weather', 'gnome-contacts',
-             'gnome-photos', 'eog', 'gnome-maps', 'gedit', 'simple-scan']
+             'gnome-photos', 'eog', 'gnome-maps', 'gedit', 'simple-scan',
+             'gnome-calculator', 'evince']
 
   - name: Upgrade the system
     become: true
     dnf:
       state: latest
       name: '*'
-  
-  - name: Enable kitty-latest copr
-    become: true
-    command: "dnf copr enable -y gagbo/kitty-latest"
-    args:
-        creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:gagbo:kitty-latest.repo
+#   
+#   - name: Enable kitty-latest copr
+#     become: true
+#     command: "dnf copr enable -y gagbo/kitty-latest"
+#     args:
+#         creates: /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:gagbo:kitty-latest.repo
   
   - name: Install system packages
     become: true
     dnf:
       state: present
       name: ['google-noto-sans-fonts',
-             'neovim',
+             'vim',
              'gcc-c++',
              'gdb',
              'cmake',
@@ -52,8 +53,9 @@
              'buildah',
              'zram',
              'earlyoom',
+             'firefox',
+             'ffmpeg',
              '{{ windscribe_rpm }}',
-             '{{ google_chrome_rpm }}',
 
              # For building RPM packages
              'rpm-build',
@@ -75,5 +77,14 @@
     systemd:
       enabled: true
       name: 'earlyoom.service'
+
+  - name: Lower samba client min protocol to access ISP
+        file storage service
+    become: true
+    ini_file:
+      path: /etc/samba/smb.conf
+      section: global
+      option: "	client min protocol"
+      value: "NT1"
 
   - import_tasks: tasks/flatpak.yml

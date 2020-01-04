@@ -1,0 +1,33 @@
+---
+  - name: change hostname to lenovo-330
+    become: true
+    hostname:
+      name: lenovo-330
+  
+  - name: Increase inotify watches limit
+    become: true
+    sysctl:
+      name: 'fs.inotify.max_user_watches'
+      value: '524288'
+      state: present
+
+  - name: Lower samba client min protocol to access ISP
+        file storage service
+    become: true
+    ini_file:
+      path: /etc/samba/smb.conf
+      section: global
+      option: "	client min protocol"
+      value: "NT1"
+
+  - name: configure git
+    git_config:
+      scope: global
+      name: "{{item.key}}"
+      value: "{{item.value}}"
+    loop:
+      - {key: "user.email", value: "geext29@gmail.com"}
+      - {key: "user.name", value: "Denis Karpovskiy"}
+      - {key: "commit.gpgSign", value: "true"}
+      - {key: "gpg.program", value: "gpg"}
+      - {key: "user.signingkey", value: "8AD63FAE"}

@@ -1,0 +1,61 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Remove unneeded packages
+    become: true
+    apt:
+      force_apt_get: yes
+      state: absent
+      name: ['okular', 'nodejs']
+
+  - name: Add Flatpak ppa
+    become: true
+    apt_repository:
+      repo: ppa:alexlarsson/flatpak
+
+  - name: Receive the Windscribe key
+    become: true
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: FDC247B7
+
+  - name: Add Windscribe repo
+    become: true
+    apt_repository:
+      repo: deb https://repo.windscribe.com/ubuntu zesty main
+      state: present
+      filename: windscribe
+
+  - name: Upgrade the system
+    become: true
+    apt:
+      force_apt_get: yes
+      autoclean: true
+      update_cache: yes
+      upgrade: dist
+  
+  - name: Install system packages
+    become: true
+    apt:
+      force_apt_get: yes
+      state: present
+      name: ['fonts-noto', 'vim', 'g++', 'gdb', 'cmake', 'ninja-build', 'make',
+             'meson', 'flatpak', 'git', 'zram-config', 'earlyoom', 
+             'windscribe-cli', 'pinentry-qt']
+
+  - name: configure kde shortcuts
+    ini_file:
+      no_extra_spaces: yes
+      path: ~/.config/kglobalshortcutsrc
+      section: kwin
+      option: '{{ item.option }}'
+      value: '{{ item.shortcut }},none,{{ item.option }}'
+    with_items:
+      - { option: 'Switch One Desktop Down', shortcut: 'Ctrl+Alt+Down' }
+      - { option: 'Switch One Desktop Up', shortcut: 'Ctrl+Alt+Up' }
+      - { option: 'Switch One Desktop to the Left', shortcut: 'Ctrl+Alt+Left' }
+      - { option: 'Switch One Desktop to the Right', shortcut: 'Ctrl+Alt+Right' }
+
+  - import_tasks: tasks/distro-agnostic.yml
+  - import_tasks: tasks/flatpak-kde.yml
