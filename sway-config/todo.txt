@@ -1,0 +1,6 @@
+configure touchpad disable button
+notifications
+styling
+gdm screensaver
+zsh
+

@@ -1,0 +1,15 @@
+sudo apt install swayidle swaylock brightnessctl playerctl waybar fonts-font-awesome \
+    grim slurp wl-clipboard libappindicator alacritty \
+    wev libinput-tools evtest
+
+# to allow changing brightness with brightnessctl
+sudo gpasswd -a geext video
+
+# to find keys ...
+sudo evtest
+# or
+sudo libinput debug-events --show-keycodes
+
+
+# to show sway in gdm, copy the sway.desktop file to this directory:
+# /usr/share/wayland-sessions/

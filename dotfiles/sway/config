@@ -1,0 +1,16 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+#
+#
+
+include ./variables.config
+include ./output.config
+include ./idle.config
+include ./input.config
+include ./hotkeys.config
+include ./bar.config
+include ./theme.config
+include /etc/sway/config.d/*
