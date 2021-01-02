@@ -23,8 +23,11 @@ configs = [
     ('.config/sway', 'theme.config', 'sway/theme.config'),
     ('.config/sway', 'variables.config', 'sway/variables.config'),
     ('.config/waybar', 'config', 'waybar.config'),
+    ('.config/waybar', 'style.css', 'waybar.css'),
     ('.config/swaylock', 'config', 'swaylock.config'),
-    ('.config/nvim', 'init.vim', 'init.vim')
+    ('.config/nvim', 'init.vim', 'init.vim'),
+    ('.config/mako', 'config', 'mako.config'),
+    ('.config/alacritty', 'alacritty.yml', 'alacritty.yml')
 ]
 
 for (_, _, srcname) in configs:
@@ -34,6 +37,8 @@ for (_, _, srcname) in configs:
 
 for (destdir, destname, srcname) in configs:
     destdir = os.environ['HOME'] + '/' + destdir
+    if not os.path.exists(destdir):
+        os.mkdir(destdir)
     srcpath = os.getcwd() + '/' + srcname
     destpath = destdir + '/' + destname
 

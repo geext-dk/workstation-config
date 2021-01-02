@@ -1,5 +1,5 @@
-sudo apt install swayidle swaylock brightnessctl playerctl waybar fonts-font-awesome \
-    grim slurp wl-clipboard libappindicator alacritty \
+sudo dnf install swayidle swaylock brightnessctl playerctl waybar fonts-font-awesome \
+    grim slurp wl-clipboard libappindicator alacritty wofi mako \
     wev libinput-tools evtest
 
 # to allow changing brightness with brightnessctl

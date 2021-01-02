@@ -13,4 +13,8 @@ include ./input.config
 include ./hotkeys.config
 include ./bar.config
 include ./theme.config
+
+exec mako
+
+
 include /etc/sway/config.d/*
