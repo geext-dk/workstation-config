@@ -1,5 +1,5 @@
 /* Nord colors https://www.nordtheme.com */
-@define-color background #282828;
+@define-color background #1d2021;
 @define-color foreground #ebdbb2;
 @define-color red #cc241d;
 @define-color orange #d65d0e;
@@ -14,7 +14,7 @@
 * {
     border: none;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: Noto Sans, Helvetica, Arial, sans-serif;
     font-size: 13px;
     min-height: 0;
 }
@@ -113,8 +113,9 @@ window#waybar.chromium {
 }
 
 #clock {
-    background-color: @foreground;
-    color: @background;
+    background-color: transparent;
+    color: @foreground;
+    font-weight: bolder;
 }
 
 #battery {

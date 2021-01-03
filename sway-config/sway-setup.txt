@@ -13,3 +13,21 @@ sudo libinput debug-events --show-keycodes
 
 # to show sway in gdm, copy the sway.desktop file to this directory:
 # /usr/share/wayland-sessions/
+
+
+# To setup the cursor theme, insert this in $HOME/.local/share/icons/default/index.theme :
+[Icon Theme]
+Inherits=Adwaita
+
+
+# For GNOME Keyring to work I need to add these lines to /etc/pam.d/login:
+auth optional pam_gnome_keyring.so
+session optional pam_gnome_keyring.so auto_start
+# and to /etc/pam.d/passwd
+password optional pam_gnome_keyring.so
+
+
+# for GDM touchpad tap-to-click to work, execute the following commands as root:
+su - gdm -s /bin/sh
+export $(dbus-launch)
+GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
