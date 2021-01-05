@@ -2,33 +2,42 @@
 import os
 import sys
 
-PRINT_INFO = False
+DEBUG = False
+if os.env['DEBUG']:
+    DEBUG = True
 
 def print_info(info):
-    if PRINT_INFO:
+    if DEBUG:
         print(info)
 
+COPYSWAYCONF = False
+if os.env['SWAY'] == '1':
+    COPYSWAYCONF = True
 
 # Elements in tuples are in the following order:
 # 1. Configuration directory for a destination config
 # 2. Name of the configuration file in destination
 # 3. Name of the configuration file in source
 configs = [
-    ('.config/sway', 'config', 'sway/config'),
-    ('.config/sway', 'bar.config', 'sway/bar.config'),
-    ('.config/sway', 'hotkeys.config', 'sway/hotkeys.config'),
-    ('.config/sway', 'idle.config', 'sway/idle.config'),
-    ('.config/sway', 'input.config', 'sway/input.config'),
-    ('.config/sway', 'output.config', 'sway/output.config'),
-    ('.config/sway', 'theme.config', 'sway/theme.config'),
-    ('.config/sway', 'variables.config', 'sway/variables.config'),
-    ('.config/waybar', 'config', 'waybar.config'),
-    ('.config/waybar', 'style.css', 'waybar.css'),
-    ('.config/swaylock', 'config', 'swaylock.config'),
     ('.config/nvim', 'init.vim', 'init.vim'),
-    ('.config/mako', 'config', 'mako.config'),
-    ('.config/alacritty', 'alacritty.yml', 'alacritty.yml')
 ]
+
+if COPYSWAYCONF:
+    configs += [
+        ('.config/sway', 'config', 'sway/config'),
+        ('.config/sway', 'bar.config', 'sway/bar.config'),
+        ('.config/sway', 'hotkeys.config', 'sway/hotkeys.config'),
+        ('.config/sway', 'idle.config', 'sway/idle.config'),
+        ('.config/sway', 'input.config', 'sway/input.config'),
+        ('.config/sway', 'output.config', 'sway/output.config'),
+        ('.config/sway', 'theme.config', 'sway/theme.config'),
+        ('.config/sway', 'variables.config', 'sway/variables.config'),
+        ('.config/waybar', 'config', 'sway/waybar.config'),
+        ('.config/waybar', 'style.css', 'sway/waybar.css'),
+        ('.config/swaylock', 'config', 'sway/swaylock.config'),
+        ('.config/mako', 'config', 'sway/mako.config'),
+        ('.config/alacritty', 'alacritty.yml', 'sway/alacritty.yml')
+    ]
 
 for (_, _, srcname) in configs:
     if not os.path.exists(srcname):
