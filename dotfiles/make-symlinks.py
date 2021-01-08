@@ -3,7 +3,7 @@ import os
 import sys
 
 DEBUG = False
-if os.env['DEBUG']:
+if os.environ['DEBUG'] == '1':
     DEBUG = True
 
 def print_info(info):
@@ -11,7 +11,7 @@ def print_info(info):
         print(info)
 
 COPYSWAYCONF = False
-if os.env['SWAY'] == '1':
+if os.environ['SWAY'] == '1':
     COPYSWAYCONF = True
 
 # Elements in tuples are in the following order:
@@ -58,10 +58,10 @@ for (destdir, destname, srcname) in configs:
         if os.path.islink(destpath):
             print_info('despath is a symlink')
             if os.path.realpath(destpath) == srcpath:
-                print_info('The symlink points to the same file. Skipping')
+                print_info('The symlink points to the same file. Skipping...')
                 continue
             else:
-                print_info('The symlink points to a different file. Deleting')
+                print_info('The symlink points to a different file. Replacing...')
                 os.unlink(destpath)
         else:
             print_info('destpath is not a symlink. renaming')
